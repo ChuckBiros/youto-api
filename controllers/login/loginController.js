@@ -37,7 +37,6 @@ exports.login = async (req, res) => {
       [email],
       function (_, users) {
         JSON.parse(JSON.stringify(users));
-        console.log(users);
         if (!(users.length > 0)) {
           return res.status(401).send("invalid credentials (e-mail)");
         }
@@ -47,7 +46,6 @@ exports.login = async (req, res) => {
         }
 
         const accessToken = generateAccessToken(users[0]);
-        console.log("token " + accessToken);
         res.send({
           accessToken,
         });

@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const jwt = require("jsonwebtoken");
 const port = process.env.PORT || 3032;
 
 // Importez votre fichier de documentation Swagger
@@ -22,7 +23,11 @@ app.use(express.json());
 app.post("/login", loginController.login);
 
 // Routes de l'API associées aux contrôleurs
-app.get("/ap-categories", categorieController.getAllCategories);
+app.get(
+  "/ap-categories",
+  authenticateToken,
+  categorieController.getAllCategories
+);
 app.get("/ap-categories/:id", categorieController.getCategoryById);
 app.post("/ap-categories", categorieController.createCategory);
 app.put("/ap-categories/:id", categorieController.updateCategory);
@@ -48,3 +53,18 @@ app.delete("/articles/:id", articleController.deleteArticle);
 app.listen(port, () => {
   console.log(`Serveur en cours d'exécution sur le port ${port}`);
 });
+
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+
+  if (token == null) return res.sendStatus(401);
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) {
+      return res.sendStatus(401);
+    }
+    req.user = user;
+    next();
+  });
+}
