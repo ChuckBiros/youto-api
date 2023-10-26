@@ -10,12 +10,16 @@ const swaggerUi = require("swagger-ui-express");
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Importez les contrôleurs
+const loginController = require("./controllers/login/loginController");
 const categorieController = require("./controllers/ap-categorie/apCategorieController");
 const procedureController = require("./controllers/administrative-procedure/administrationProcedureController");
 const articleController = require("./controllers/article/articleController");
 
 // Middleware pour le traitement des requêtes JSON
 app.use(express.json());
+
+// Routes de l'API pour l'authentification
+app.post("/login", loginController.login);
 
 // Routes de l'API associées aux contrôleurs
 app.get("/ap-categories", categorieController.getAllCategories);
