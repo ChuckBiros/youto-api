@@ -17,6 +17,7 @@ const procedureController = require("./controllers/administrative-procedure/admi
 const articleController = require("./controllers/article/articleController");
 const articleImageController = require("./controllers/article-image/articleImageController");
 const appointementTrackingController = require("./controllers/appointement-tracking/appointementTracking");
+const userAppointementTrackingController = require("./controllers/user-appointement-tracking/userAppointementTracking");
 
 // Middleware pour le traitement des requêtes JSON
 app.use(express.json());
@@ -55,6 +56,12 @@ app.get("/image-article/:id", articleImageController.getImageById);
 app.post("/image-article", articleImageController.addImage);
 app.put("/image-article/:id", articleImageController.updateImage);
 app.delete("/image-article/:id", articleImageController.deleteImage);
+
+// Routes de l'API associées au contrôleur des images d'articles
+app.get(
+  "/user-appointement-tracking/:id",
+  userAppointementTrackingController.getUserAppointementTrackingByUserId
+);
 
 // Routes de l'API associées au contrôleur du suivi des rendez-vous
 app.get(
