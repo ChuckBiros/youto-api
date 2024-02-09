@@ -116,7 +116,7 @@ exports.createUser = async (req, res) => {
     birth_date,
     inscription_date,
     password,
-    id_role,
+    id_role = 1,
     city,
   } = req.body;
   try {
