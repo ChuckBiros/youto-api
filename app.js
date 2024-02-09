@@ -20,6 +20,8 @@ const articleController = require("./controllers/article/articleController");
 const articleImageController = require("./controllers/article-image/articleImageController");
 const appointementTrackingController = require("./controllers/appointement-tracking/appointementTracking");
 const userAppointementTrackingController = require("./controllers/user-appointement-tracking/userAppointementTracking");
+const tasksController = require("./controllers/task/taskController");
+const userTaskController = require("./controllers/user-task/userTask");
 
 // Middleware pour le traitement des requêtes JSON
 app.use(express.json());
@@ -61,7 +63,7 @@ app.post("/image-article", articleImageController.addImage);
 app.put("/image-article/:id", articleImageController.updateImage);
 app.delete("/image-article/:id", articleImageController.deleteImage);
 
-// Routes de l'API associées au contrôleur des images d'articles
+// Routes de l'API associées au contrôleur du suivi des rendez-vous d'un utilisateur
 app.get(
   "/user-appointement-tracking/:id",
   userAppointementTrackingController.getUserAppointementTrackingByUserId
@@ -88,6 +90,16 @@ app.delete(
   "/appointement-tracking/:id",
   appointementTrackingController.deleteAppointementTracking
 );
+
+// Routes de l'API associées au contrôleur des tâches de la liste de tâches
+app.get("/tasks", tasksController.getAllTasks);
+app.get("/tasks/:id", tasksController.getTaskById);
+app.post("/tasks", tasksController.createTask);
+app.put("/tasks/:id", tasksController.updateTask);
+app.delete("/tasks/:id", tasksController.deleteTask);
+
+// Routes de l'API associées au contrôleur du tâches d'un utilisateur
+app.get("/user-task/:id", userTaskController.getUserTasksByUserId);
 
 // Si vous avez d'autres contrôleurs, associez-les ici de la même manière
 
