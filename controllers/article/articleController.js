@@ -19,7 +19,9 @@ const db = require("../../config/database").promise(); // Importez la configurat
  */
 exports.getAllArticles = async (req, res) => {
   try {
-    const articles = await db.query("SELECT * FROM article");
+    const articles = await db.query(
+      "SELECT article.ID, article.NAME, article.DESCRIPTION, article.CONTENT, img.id as img FROM article LEFT JOIN img ON img.ARTICLE_ID = article.ID GROUP BY article.ID;"
+    );
     res.json(articles[0]);
   } catch (error) {
     console.error(error);
@@ -51,9 +53,10 @@ exports.getAllArticles = async (req, res) => {
 exports.getArticleById = async (req, res) => {
   const articleId = req.params.id;
   try {
-    const article = await db.query("SELECT * FROM article WHERE id = ?", [
-      articleId,
-    ]);
+    const article = await db.query(
+      "SELECT article.ID, article.NAME, article.DESCRIPTION, article.CONTENT, img.id as img FROM article LEFT JOIN img ON img.ARTICLE_ID = article.ID WHERE article.ID = ? GROUP BY article.ID",
+      [articleId]
+    );
     if (article.length === 0) {
       return res.status(404).json({ error: "Article non trouvé." });
     }
