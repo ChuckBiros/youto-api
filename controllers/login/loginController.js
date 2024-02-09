@@ -32,25 +32,23 @@ const db = require("../../config/database").promise(); // Importez la configurat
 exports.login = async (req, res) => {
   const { email, password } = req.body;
   try {
-    db.query(
-      "SELECT * FROM user WHERE email = ?",
-      [email],
-      function (_, users) {
-        JSON.parse(JSON.stringify(users));
-        if (!(users.length > 0)) {
-          return res.status(401).send("invalid credentials (e-mail)");
-        }
+    const [connect] = await db.query("SELECT * FROM user WHERE email = ?", [
+      email,
+    ]);
 
-        if (users[0].PASSWORD !== password) {
-          return res.status(401).send("invalid credentials (password)");
-        }
+    JSON.parse(JSON.stringify(connect));
+    if (!(connect.length > 0)) {
+      return res.status(401).send("invalid credentials (e-mail)");
+    }
 
-        const accessToken = generateAccessToken(users[0]);
-        res.send({
-          accessToken,
-        });
-      }
-    );
+    if (connect[0].PASSWORD !== password) {
+      return res.status(401).send("invalid credentials (password)");
+    }
+
+    const accessToken = generateAccessToken(connect[0]);
+    res.send({
+      accessToken,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({
