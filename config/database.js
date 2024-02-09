@@ -3,8 +3,8 @@ const mysql = require("mysql2");
 // Configuration de la base de données
 const dbConfig = {
   host: "localhost", // Adresse de la base de données
-  user: "youto-api", // Nom d'utilisateur de la base de données
-  password: "Not24Get", // Mot de passe de la base de données
+  user: "root", // Nom d'utilisateur de la base de données
+  password: "", // Mot de passe de la base de données
   database: "youto", // Nom de la base de données
 };
 

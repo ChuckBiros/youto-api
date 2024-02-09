@@ -18,6 +18,7 @@ const db = require("../../config/database").promise(); // Importez la configurat
  *         description: Liste de tous les articles
  */
 exports.getAllArticles = async (req, res) => {
+  console.log("in get all articles")
   try {
     const articles = await db.query("SELECT * FROM article");
     res.json(articles);

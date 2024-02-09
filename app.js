@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const jwt = require("jsonwebtoken");
+const cors = require('cors');
+
 const port = process.env.PORT || 3032;
 
 // Importez votre fichier de documentation Swagger
@@ -21,6 +23,8 @@ const userAppointementTrackingController = require("./controllers/user-appointem
 
 // Middleware pour le traitement des requêtes JSON
 app.use(express.json());
+app.use(cors());
+
 
 // Routes de l'API pour l'authentification
 app.post("/login", loginController.login);
