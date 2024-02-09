@@ -20,7 +20,7 @@ const db = require("../../config/database").promise(); // Importez la configurat
 exports.getAllProcedures = async (req, res) => {
   try {
     const demarches = await db.query("SELECT * FROM administrative_procedure");
-    res.json(demarches);
+    res.json(demarches[0]);
   } catch (error) {
     console.error(error);
     res.status(500).json({

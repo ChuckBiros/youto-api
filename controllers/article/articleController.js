@@ -21,7 +21,7 @@ exports.getAllArticles = async (req, res) => {
   console.log("in get all articles")
   try {
     const articles = await db.query("SELECT * FROM article");
-    res.json(articles);
+    res.json(articles[0]);
   } catch (error) {
     console.error(error);
     res.status(500).json({
