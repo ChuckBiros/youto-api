@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const db = require("../../config/database"); // Importez la configuration de votre base de données
+const db = require("../../config/database").promise(); // Importez la configuration de votre base de données
 /**
  * @swagger
  * tags:
