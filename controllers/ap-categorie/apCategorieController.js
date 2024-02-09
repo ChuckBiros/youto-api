@@ -20,7 +20,7 @@ const db = require("../../config/database").promise(); // Importez la configurat
 exports.getAllCategories = async (req, res) => {
   try {
     const categories = await db.query("SELECT * FROM ap_categories");
-    res.json(categories);
+    res.json(categories[0]);
   } catch (error) {
     console.error(error);
     res.status(500).json({
