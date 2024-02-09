@@ -85,6 +85,9 @@ exports.getTaskById = async (req, res) => {
  *                 type: string
  *               deadline:
  *                 type: string
+ *                 format: date-time
+ *               id_user:
+ *                 type: integer
  *             required:
  *               - task_description
  *               - status
@@ -93,11 +96,11 @@ exports.getTaskById = async (req, res) => {
  *         description: Tâche créée avec succès
  */
 exports.createTask = async (req, res) => {
-  const { task_description, status, deadline } = req.body;
+  const { task_description, status, deadline, id_user } = req.body;
   try {
     await db.query(
-      "INSERT INTO todo_list (task_description, status, deadline) VALUES (?, ?, ?)",
-      [task_description, status, deadline]
+      "INSERT INTO todo_list (task_description, status, deadline, id_user) VALUES (?, ?, ?, ?)",
+      [task_description, status, deadline, id_user]
     );
     res.json({
       message: "Tâche créée avec succès.",
