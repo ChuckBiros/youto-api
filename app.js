@@ -16,6 +16,7 @@ const categorieController = require("./controllers/ap-categorie/apCategorieContr
 const procedureController = require("./controllers/administrative-procedure/administrationProcedureController");
 const articleController = require("./controllers/article/articleController");
 const articleImageController = require("./controllers/article-image/articleImageController");
+const appointementTrackingController = require("./controllers/appointement-tracking/appointementTracking");
 
 // Middleware pour le traitement des requêtes JSON
 app.use(express.json());
@@ -54,6 +55,28 @@ app.get("/image-article/:id", articleImageController.getImageById);
 app.post("/image-article", articleImageController.addImage);
 app.put("/image-article/:id", articleImageController.updateImage);
 app.delete("/image-article/:id", articleImageController.deleteImage);
+
+// Routes de l'API associées au contrôleur du suivi des rendez-vous
+app.get(
+  "/appointement-tracking",
+  appointementTrackingController.getAllAppointementTracking
+);
+app.get(
+  "/appointement-tracking/:id",
+  appointementTrackingController.getAppointementTrackingById
+);
+app.post(
+  "/appointement-tracking",
+  appointementTrackingController.addAppointementTracking
+);
+app.put(
+  "/appointement-tracking/:id",
+  appointementTrackingController.updateAppointementTracking
+);
+app.delete(
+  "/appointement-tracking/:id",
+  appointementTrackingController.deleteAppointementTracking
+);
 
 // Si vous avez d'autres contrôleurs, associez-les ici de la même manière
 
