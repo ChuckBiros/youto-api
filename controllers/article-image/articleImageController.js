@@ -9,7 +9,7 @@ const db = require("../../config/database").promise(); // Importez la configurat
 
 /**
  * @swagger
- * /images:
+ * /image-article:
  *   get:
  *     summary: Récupérer toutes les images
  *     tags: [Images]
@@ -20,7 +20,7 @@ const db = require("../../config/database").promise(); // Importez la configurat
 exports.getAllImages = async (req, res) => {
   try {
     const images = await db.query("SELECT * FROM img");
-    res.json(images);
+    res.json(images[0]);
   } catch (error) {
     console.error(error);
     res.status(500).json({
@@ -31,7 +31,7 @@ exports.getAllImages = async (req, res) => {
 
 /**
  * @swagger
- * /images/{id}:
+ * /image-article/{id}:
  *   get:
  *     summary: Récupérer une image par ID
  *     tags: [Images]
@@ -66,7 +66,7 @@ exports.getImageById = async (req, res) => {
 
 /**
  * @swagger
- * /images:
+ * /image-article:
  *   post:
  *     summary: Ajouter une nouvelle image
  *     tags: [Images]
@@ -112,7 +112,7 @@ exports.addImage = async (req, res) => {
 
 /**
  * @swagger
- * /images/{id}:
+ * /image-article/{id}:
  *   put:
  *     summary: Mettre à jour une image par ID
  *     tags: [Images]
@@ -165,7 +165,7 @@ exports.updateImage = async (req, res) => {
 
 /**
  * @swagger
- * /images/{id}:
+ * /image-article/{id}:
  *   delete:
  *     summary: Supprimer une image par ID
  *     tags: [Images]
