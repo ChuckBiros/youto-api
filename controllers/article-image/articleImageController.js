@@ -1,4 +1,4 @@
-const db = require("../../config/database"); // Importez la configuration de votre base de données
+const db = require("../../config/database").promise(); // Importez la configuration de votre base de données
 
 /**
  * @swagger
@@ -73,16 +73,17 @@ exports.getImageById = async (req, res) => {
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *          multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
  *               name:
  *                 type: string
  *               image:
- *                 type: blob
+ *                 type: string
+ *                 format: binary
  *               article_id:
- *                 type: int
+ *                 type: integer
  *             required:
  *               - name
  *               - image
@@ -134,7 +135,7 @@ exports.addImage = async (req, res) => {
  *               image:
  *                 type: blob
  *               article_id:
- *                 type: int
+ *                 type: integer
  *             required:
  *               - name
  *               - image
