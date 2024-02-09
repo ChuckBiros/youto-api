@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const jwt = require("jsonwebtoken");
-const cors = require('cors');
+const cors = require("cors");
 
 const port = process.env.PORT || 3032;
 
@@ -22,11 +22,11 @@ const appointementTrackingController = require("./controllers/appointement-track
 const userAppointementTrackingController = require("./controllers/user-appointement-tracking/userAppointementTracking");
 const tasksController = require("./controllers/task/taskController");
 const userTaskController = require("./controllers/user-task/userTask");
+const usersController = require("./controllers/user/user");
 
 // Middleware pour le traitement des requêtes JSON
 app.use(express.json());
 app.use(cors());
-
 
 // Routes de l'API pour l'authentification
 app.post("/login", loginController.login);
@@ -100,6 +100,13 @@ app.delete("/tasks/:id", tasksController.deleteTask);
 
 // Routes de l'API associées au contrôleur du tâches d'un utilisateur
 app.get("/user-task/:id", userTaskController.getUserTasksByUserId);
+
+// Routes de l'API associées au contrôleur des utilisateurs
+app.get("/users", usersController.getAllUsers);
+app.get("/users/:id", usersController.getUserById);
+app.post("/users", usersController.createUser);
+app.put("/users/:id", usersController.updateUser);
+app.delete("/users/:id", usersController.deleteUser);
 
 // Si vous avez d'autres contrôleurs, associez-les ici de la même manière
 
