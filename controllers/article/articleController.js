@@ -57,7 +57,7 @@ exports.getArticleById = async (req, res) => {
     if (article.length === 0) {
       return res.status(404).json({ error: "Article non trouvé." });
     }
-    res.json(article[0]);
+    res.json(article[0][0]);
   } catch (error) {
     console.error(error);
     res.status(500).json({
